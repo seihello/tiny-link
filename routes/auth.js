@@ -1,4 +1,5 @@
 import express from "express";
+import { postLogin } from "../controllers/auth.js";
 const authRouter = express.Router();
 
 authRouter.get("/login", (req, res) => {
@@ -6,7 +7,7 @@ authRouter.get("/login", (req, res) => {
 });
 
 authRouter.post("/login", (req, res) => {
-  console.log("receive post login");
+  postLogin(req, res);
 });
 
 authRouter.get("/register", (req, res) => {

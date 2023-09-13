@@ -1,6 +1,9 @@
 <header>
-  <nav class="navbar navbar-expand-md navbar-dark bg-success">
-    <a class="navbar-brand">TinyLinks</a>
+  <nav
+    style="z-index: 999"
+    class="navbar navbar-expand-md navbar-light bg-light border-bottom"
+  >
+    <a class="navbar-brand text-success font-weight-bold" href="/">TinyLinks</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -15,16 +18,28 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav d-flex justify-content-between w-100">
         <div class="d-flex">
-          <a class="nav-item nav-link">My URLs</a>
-          <a class="nav-item nav-link">Create New URL</a>
+          <a
+            class="nav-item nav-link text-success font-weight-bold"
+            href="/urls"
+            >My URLs</a
+          >
+          <a
+            class="nav-item nav-link text-success font-weight-bold"
+            href="/urls/new"
+            >Create New URL</a
+          >
         </div>
-        <div class="d-flex">
-          <span class="nav-item nav-link">Logged in as: </span>
+        <div class="d-flex align-items-center">
+          <span class="nav-item nav-link text-muted">Logged in as: </span>
           <form>
-            <button type="submit" class="btn btn-danger">Logout</button>
+            <button type="submit" class="btn btn-outline-danger mr-2">
+              Logout
+            </button>
           </form>
-          <a class="nav-item nav-link">Login</a>
-          <a class="nav-item nav-link">Register</a>
+          <a class="nav-item nav-link text-success" href="/login">Login</a>
+          <a class="nav-item nav-link text-success" href="/register"
+            >Register</a
+          >
         </div>
       </div>
     </div>

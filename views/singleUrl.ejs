@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <!-- Bootstrap CSS -->
     <link
       rel="stylesheet"
@@ -8,26 +13,130 @@
       integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
       crossorigin="anonymous"
     />
+    <style>
+      body {
+        background-color: #f8f9fa;
+        overflow: hidden;
+      }
+      .centered-card {
+        max-width: 600px; /* Change this to adjust the card width */
+        margin: 2rem auto;
+        backdrop-filter: blur(10px);
+        background-color: rgba(255, 255, 255, 0.7);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        border-radius: 1rem;
+        border: none;
+      }
+      .card {
+        margin: 2rem;
+        backdrop-filter: blur(10px);
+        background-color: rgba(255, 255, 255, 0.7);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        border-radius: 1rem;
+        border: none;
+      }
+      .card-header,
+      .card-footer {
+        background-color: #e9ecef;
+      }
+      .card-body {
+        padding: 2rem;
+      }
+      .edit-section {
+        padding: 1rem;
+        background-color: rgba(248, 249, 250, 0.7);
+      }
+      .edit-section h5 {
+        margin-bottom: 1rem;
+      }
+      .edit-section form {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+      @keyframes moveY {
+        0% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(30px);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes moveX {
+        0% {
+          transform: translateX(0);
+        }
+        50% {
+          transform: translateX(30px);
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+
+      .blurred-shape {
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        z-index: -1;
+        background: rgba(
+          255,
+          0,
+          0,
+          0.3
+        ); /* red color, adjust the color as needed */
+        border-radius: 50%;
+        filter: blur(100px);
+        animation: moveY 5s infinite;
+      }
+
+      .blurred-shape:nth-child(odd) {
+        animation: moveX 6s infinite;
+        background: rgba(0, 0, 255, 0.2); /* blue color */
+      }
+    </style>
     <title>URL - TinyLinks</title>
   </head>
-
   <body>
-    <div class="card text-center">
-      <div class="card-header"></div>
+    <div class="blurred-shape" style="top: -100px; left: -100px"></div>
+    <div class="blurred-shape" style="top: -50px; right: -150px"></div>
+    <div class="blurred-shape" style="bottom: -100px; left: -200px"></div>
+
+    <%- include('partials/header.ejs') %>
+
+    <div class="centered-card text-center">
+      <div class="card-header">
+        <!-- You can put some header content here -->
+      </div>
       <div class="card-body">
         <h5 class="card-title">TinyURL for:</h5>
-        <p class="card-text">Short URL ID: <a></a></p>
+        <p class="card-text">Short URL ID: <a href="#">YourURLHere</a></p>
       </div>
-      <div>
+      <div class="edit-section">
         <h5>Edit</h5>
         <form>
           <label for="updatedUrl">New URL:</label>
-          <input type="text" placeholder="Input the new URL" />
+          <input
+            type="text"
+            id="updatedUrl"
+            name="updatedUrl"
+            placeholder="Input the new URL"
+            class="form-control"
+          />
           <button type="submit" class="btn btn-primary">Edit</button>
         </form>
       </div>
-      <div class="card-footer text-muted"></div>
+      <div class="card-footer text-muted">
+        <!-- You can put some footer content here -->
+      </div>
     </div>
+
+    <%- include('partials/footer.ejs') %>
+
     <!-- Bootstrap JS -->
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-
     <!-- Bootstrap CSS -->
     <link
       rel="stylesheet"
@@ -14,19 +13,30 @@
       integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
       crossorigin="anonymous"
     />
-
-    <title>New URL - TinyLinks</title>
+    <title>TinyLinks - Home</title>
     <style>
       body {
-        overflow: hidden;
+        overflow-y: hidden;
       }
 
-      .create-section {
-        position: relative;
+      .hero-section {
+        background-color: rgba(255, 255, 255, 0.3);
         backdrop-filter: blur(20px);
-        padding: 2em;
-        border-radius: 10px;
-        margin-top: 10vh;
+        position: relative;
+        height: calc(100vh - 60px); /* Assuming your navbar is 60px */
+      }
+
+      .centered-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+      }
+
+      .url-input {
+        max-width: 500px;
+        margin-bottom: 1rem;
       }
 
       @keyframes moveY {
@@ -57,9 +67,15 @@
         position: absolute;
         width: 600px;
         height: 600px;
-        background: rgba(255, 0, 0, 0.2);
+        z-index: -1;
+        background: rgba(
+          255,
+          0,
+          0,
+          0.3
+        ); /* red color, adjust the color as needed */
         border-radius: 50%;
-        filter: blur(80px);
+        filter: blur(100px);
         animation: moveY 5s infinite;
       }
 
@@ -73,26 +89,27 @@
   <body>
     <%- include('partials/header.ejs') %>
 
-    <div class="container text-center">
-      <div class="blurred-shape" style="top: 80px; left: 50px"></div>
-      <div class="blurred-shape" style="top: 100px; right: 200px"></div>
-      <div class="blurred-shape" style="top: 450px; right: -200px"></div>
-
-      <main class="create-section">
-        <h3>Create TinyURL</h3>
-        <form class="form-inline justify-content-center">
-          <div class="form-group mb-2">
-            <label for="longURL" class="mr-2">Enter a URL:</label>
-            <input
-              class="form-control mr-2"
-              type="text"
-              placeholder="http://"
-              style="width: 300px"
-            />
-            <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="hero-section" style="margin-top: -5rem">
+      <div class="blurred-shape" style="top: 100px; left: 100px"></div>
+      <div class="blurred-shape" style="top: 400px; right: 300px"></div>
+      <div class="blurred-shape" style="top: -200px; right: 50px"></div>
+      <div class="centered-content">
+        <h1>Welcome to TinyLinks</h1>
+        <p>Shorten your long URLs for easier sharing and management!</p>
+        <form action="/create-short-url" method="POST" style="width: 400px">
+          <input
+            type="url"
+            class="form-control url-input mb-3"
+            placeholder="Enter your long URL here"
+            required
+            name="longUrl"
+          />
+          <div class="d-flex justify-content-center">
+            <!-- Flex wrapper around the button -->
+            <button type="submit" class="btn btn-primary">Shorten</button>
           </div>
         </form>
-      </main>
+      </div>
     </div>
 
     <%- include('partials/footer.ejs') %>

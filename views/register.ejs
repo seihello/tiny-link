@@ -15,27 +15,113 @@
       crossorigin="anonymous"
     />
 
-    <title>New URL - TinyLinks</title>
+    <title>Register - TinyLinks</title>
+
+    <style>
+      body {
+        overflow: hidden;
+      }
+      @keyframes moveY {
+        0% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(30px);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes moveX {
+        0% {
+          transform: translateX(0);
+        }
+        50% {
+          transform: translateX(30px);
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+
+      .blurred-shape {
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        z-index: -1;
+        background: rgba(
+          255,
+          0,
+          0,
+          0.3
+        ); /* red color, adjust the color as needed */
+        border-radius: 50%;
+        filter: blur(100px);
+        animation: moveY 5s infinite;
+      }
+
+      .blurred-shape:nth-child(odd) {
+        animation: moveX 6s infinite;
+        background: rgba(0, 0, 255, 0.2); /* blue color */
+      }
+    </style>
   </head>
 
   <body>
-    <main style="margin: 1em">
-      <form>
-        <div>
-          <label for="name">Name</label>
-          <input type="text" />
+    <%- include('partials/header.ejs') %>
+
+    <main class="container" style="margin-top: 10rem">
+      <div class="blurred-shape" style="top: 200px; left: 400px"></div>
+      <div class="blurred-shape" style="top: 200px; right: 300px"></div>
+      <div class="blurred-shape" style="top: 500px; right: -200px"></div>
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header text-center font-weight-bold">
+              Register to TinyLinks
+            </div>
+            <div class="card-body">
+              <form>
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    placeholder="Enter name"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    placeholder="Enter email"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    placeholder="Enter password"
+                  />
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">
+                  Register
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
-        <div>
-          <label for="email">Email</label>
-          <input type="email" />
-        </div>
-        <div>
-          <label for="password">Password</label>
-          <input type="password" />
-        </div>
-        <button type="submit">Register</button>
-      </form>
+      </div>
     </main>
+
+    <%- include('partials/footer.ejs') %>
+
     <!-- Bootstrap JS -->
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

@@ -1,16 +1,18 @@
 // auth functions
 export const postLogin = (req, res) => {
-  if(userExists(req.body.userId)) {
-    if(isPasswordValid(req.body.userId, req.body.password)) {
+  console.log(req.body.email);
+  console.log(req.body.password);
+  if(userExists(req.body.email)) {
+    if(isPasswordValid(req.body.email, req.body.password)) {
       res.redirect("urls");
     }
   }
 }
 
-function userExists(userId) {
+function userExists(email) {
   return true;
 }
 
-function isPasswordValid(userId, password) {
+function isPasswordValid(email, password) {
   return true;
 }

@@ -1,10 +1,14 @@
 import express from "express";
-import {newUser} from"../controllers/auth.js";
+import { newUser, postLogin } from "../controllers/auth.js";
 
 const authRouter = express.Router();
 
 authRouter.get("/login", (req, res) => {
   res.render("login"); // This will render the urls.ejs file
+});
+
+authRouter.post("/login", (req, res) => {
+  postLogin(req, res);
 });
 
 authRouter.get("/register", (req, res) => {

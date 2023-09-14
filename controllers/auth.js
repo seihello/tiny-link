@@ -12,14 +12,15 @@ export const postLogin = (req, res) => {
 
   users = readUsers();
 
-  if(getUser(req.body.email)) {
-    if(isPasswordValid(req.body.email, req.body.password)) {
+  const user = getUser(req.body.email);
+  if(user) {
+    if(isPasswordValid(user, req.body.password)) {
       res.redirect("urls");
     } else {
-      console.log("password incorrect");
+      res.status(401).send("password is incorrect");
     }
   } else {
-    res.status(403).send("this email is not registered");
+    res.status(401).send("this email is not registered");
   }
 }
 
@@ -31,8 +32,8 @@ function getUser(email) {
   return user;
 }
 
-function isPasswordValid(email, password) {
-  return true;
+function isPasswordValid(user, password) {
+  return user.password === password;
 }
 
 const __filename = fileURLToPath(import.meta.url);

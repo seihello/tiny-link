@@ -80,7 +80,11 @@
 
       <main class="create-section">
         <h3>Create TinyURL</h3>
-        <form class="form-inline justify-content-center">
+        <form
+          class="form-inline justify-content-center"
+          action="/urls"
+          method="post"
+        >
           <div class="form-group mb-2">
             <label for="longURL" class="mr-2">Enter a URL:</label>
             <input
@@ -88,6 +92,8 @@
               type="text"
               placeholder="http://"
               style="width: 300px"
+              name="longUrl"
+              id="longURL"
             />
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>

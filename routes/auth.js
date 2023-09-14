@@ -1,5 +1,6 @@
 import express from "express";
-import { postLogin } from "../controllers/auth.js";
+import { newUser, postLogin } from "../controllers/auth.js";
+
 const authRouter = express.Router();
 
 authRouter.get("/login", (req, res) => {
@@ -13,5 +14,7 @@ authRouter.post("/login", (req, res) => {
 authRouter.get("/register", (req, res) => {
   res.render("register"); // This will render the urls.ejs file
 });
+
+authRouter.post("/register", newUser);
 
 export default authRouter;

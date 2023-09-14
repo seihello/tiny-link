@@ -8,6 +8,7 @@ import authRouter from "./routes/auth.js";
 server.set("view engine", "ejs");
 server.set("views", path.join(path.resolve(), "views"));
 server.use(express.urlencoded({ extended: true }));
+server.use(express.json());
 
 server.use("/urls", urlsRouter);
 

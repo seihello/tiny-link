@@ -4,10 +4,10 @@
     "email": "test@test.com",
     "password": "1234"
   },
-  "e88b77a4-9390-405a-8e7d-fd1f174ccfde": {
-    "id": "e88b77a4-9390-405a-8e7d-fd1f174ccfde",
+  "db622fd0-26f0-4846-9add-e4366b6e6caf": {
+    "id": "db622fd0-26f0-4846-9add-e4366b6e6caf",
     "name": "Bosco Lam",
     "email": "hkboscolam@gmail.com",
-    "password": "dd"
+    "password": "$2b$04$94ZJZSnDA3AXzDILMmkihu.dTLo0ngp4Bxm18Hp7lGRCotiPD6hdm"
   }
 }

@@ -35,6 +35,7 @@ export const postLogin = (req, res) => {
   const user = getUser(req.body.email);
   if(user) {
     if(isPasswordValid(user, req.body.password)) {
+      req.session.login = true;
       res.redirect("urls");
     } else {
       res.status(401).send("password is incorrect");

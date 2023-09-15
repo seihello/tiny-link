@@ -81,6 +81,30 @@
       .fulfilled {
         color: green;
       }
+      .password-input {
+        display: flex;
+        align-items: center;
+        position: relative;
+      }
+
+      .password-input input {
+        flex: 1;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 6px;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      }
+
+      .password-input .show-password-button {
+        background-color: transparent;
+        border: none;
+        padding: 6px 10px;
+        cursor: pointer;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+      }
     </style>
   </head>
 
@@ -121,13 +145,22 @@
                 </div>
                 <div class="form-group">
                   <label for="password">Password</label>
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="password"
-                    placeholder="Enter password"
-                    name="password"
-                  />
+                  <div class="password-input">
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="password"
+                      placeholder="Enter password"
+                      name="password"
+                    />
+                    <button
+                      type="button"
+                      id="showPasswordButton"
+                      class="show-password-button"
+                    >
+                      Show
+                    </button>
+                  </div>
                 </div>
                 <div id="password-requirements">
                   <p>Password Requirements:</p>
@@ -167,13 +200,22 @@
 
                 <div class="form-group">
                   <label for="confirmPassword">Confirm Password</label>
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    placeholder="Confirm password"
-                  />
+                  <div class="password-input">
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      placeholder="Confirm password"
+                    />
+                    <button
+                      type="button"
+                      id="showPasswordButton"
+                      class="show-password-button"
+                    >
+                      Show
+                    </button>
+                  </div>
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-block">
@@ -209,26 +251,33 @@
       const confirmPasswordInput = document.getElementById("confirmPassword");
 
       const requirementLines = document.querySelectorAll(".requirement-line");
+      const showPasswordButton = document.getElementById("showPasswordButton");
 
-      // Function to set all requirement lines to red with a cross initially
+      showPasswordButton.addEventListener("click", () => {
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          showPasswordButton.textContent = "Hide";
+        } else {
+          passwordInput.type = "password";
+          showPasswordButton.textContent = "Show";
+        }
+      });
+
       function initializeRequirements() {
         for (const line of requirementLines) {
           updateRequirementLine(line, false);
         }
       }
 
-      // Function to validate passwords and update requirement lines
       function validatePasswords() {
         const password = passwordInput.value;
 
-        // Password requirements checks
         const hasUppercase = /[A-Z]/.test(password);
         const hasLowercase = /[a-z]/.test(password);
         const hasDigit = /\d/.test(password);
         const hasSpecialChar = /[@$!%*?&]/.test(password);
         const hasLength = password.length >= 8;
 
-        // Update requirement check classes and symbols
         for (const line of requirementLines) {
           const requirementID = line.id;
           const isValid =
@@ -258,10 +307,8 @@
         }
       }
 
-      // Initialize requirement lines to red with a cross
       initializeRequirements();
 
-      // Add event listeners for keyup events on the password field
       passwordInput.addEventListener("keyup", validatePasswords);
       confirmPasswordInput.addEventListener("keyup", validatePasswords);
     </script>

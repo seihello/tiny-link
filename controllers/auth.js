@@ -5,26 +5,40 @@ import { dirname } from "path";
 import { v4 as uuidv4 } from "uuid";
 import users from "../models/users.json" assert { type: "json" };
 
-const newUser = async (req, res, next) => {
+const newUser = (req, res) => {
   const receivedMail = req.body.email;
   const receivedName = req.body.name;
   const receivedPassword = req.body.password;
+  const confirmPassword = req.body.confirmPassword;
   const id = uuidv4();
 
-  users[id] = {
+  const checkUsers = readUsers();
+
+  const users = Object.values(checkUsers);
+
+  const checkEmail = users.some((user) => user.email === receivedMail);
+
+  if (checkEmail) {
+    return res.status(400).send("Email already exists. Please choose a different email.");
+  }
+
+  if (receivedPassword !== confirmPassword) {
+    return res.status(400).send("Passwords do not match. Please try again.");
+  }
+
+  const newUserObject = {
     id: id,
     name: receivedName,
     email: receivedMail,
     password: receivedPassword,
   };
 
-  const updatedUsers = { ...users };
+  checkUsers[id] = newUserObject;
 
-  fs.writeFileSync("models/users.json", JSON.stringify(updatedUsers, null, 2));
+  fs.writeFileSync("models/users.json", JSON.stringify(checkUsers, null, 2));
 
   res.redirect("/");
 };
-
 export {newUser};
 
 // auth functions

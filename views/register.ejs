@@ -21,6 +21,14 @@
       body {
         overflow: hidden;
       }
+      ::-webkit-scrollbar {
+        width: 7px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background-color: #cccccc;
+        border-radius: 5px;
+      }
       @keyframes moveY {
         0% {
           transform: translateY(0);
@@ -71,7 +79,7 @@
   <body>
     <%- include('partials/header.ejs') %>
 
-    <main class="container" style="margin-top: 3rem">
+    <main class="container" style="margin-top: 1rem; padding-bottom: 100px">
       <div class="blurred-shape" style="top: 200px; left: 400px"></div>
       <div class="blurred-shape" style="top: 200px; right: 300px"></div>
       <div class="blurred-shape" style="top: 500px; right: -200px"></div>
@@ -81,7 +89,7 @@
             <div class="card-header text-center font-weight-bold">
               Register to TinyLinks
             </div>
-            <div class="card-body">
+            <div class="card-body" style="overflow-y: auto; max-height: 350px">
               <form action="/register" method="POST">
                 <div class="form-group">
                   <label for="name">Name</label>
@@ -113,6 +121,17 @@
                     name="password"
                   />
                 </div>
+                <div class="form-group">
+                  <label for="confirmPassword">Confirm Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    placeholder="Confirm password"
+                  />
+                </div>
+
                 <button type="submit" class="btn btn-primary btn-block">
                   Register
                 </button>
@@ -123,7 +142,7 @@
       </div>
     </main>
 
-    <%- include('partials/footer.ejs') %>
+    <%- include('partials/footer.ejs', { footerClass: 'fixed-bottom' }) %>
 
     <!-- Bootstrap JS -->
     <script
@@ -141,5 +160,29 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
+    <script>
+      const passwordInput = document.getElementById("password");
+      const confirmPasswordInput = document.getElementById("confirmPassword");
+      const errorElement = document.getElementById("error-message");
+
+      function validatePasswords() {
+        if (passwordInput.value !== confirmPasswordInput.value) {
+          errorElement.textContent = "Passwords do not match.";
+        } else {
+          errorElement.textContent = "";
+        }
+      }
+
+      document.querySelector("form").addEventListener("submit", (e) => {
+        if (passwordInput.value !== confirmPasswordInput.value) {
+          e.preventDefault();
+          errorElement.textContent =
+            "Passwords do not match. Please try again.";
+        }
+      });
+
+      passwordInput.addEventListener("input", validatePasswords);
+      confirmPasswordInput.addEventListener("input", validatePasswords);
+    </script>
   </body>
 </html>

@@ -58,6 +58,12 @@ function isPasswordValid(user, password) {
   return user.password === password;
 }
 
+export function postLogout(req, res) {
+  req.session = null;
+  res.render("login");
+  console.log("aaaa");
+}
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 

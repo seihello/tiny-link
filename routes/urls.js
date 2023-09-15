@@ -5,6 +5,14 @@ import { readUrls, writeUrls } from "../controllers/urls.js"; // Functions to re
 
 const urlsRouter = express.Router(); // Initializing the express router
 
+urlsRouter.use((req, res, next) => {
+  if(req.session.login) {
+    next();
+  } else {
+    res.redirect("/login");
+  }
+});
+
 // Route for rendering the form to create a new URL
 urlsRouter.get("/new", (req, res) => {
   res.render("newUrl"); // Render the "newUrl" view

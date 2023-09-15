@@ -49,6 +49,7 @@ export const postLogin = (req, res) => {
   const user = getUser(req.body.email);
   if(user) {
     if(isPasswordValid(user, req.body.password)) {
+      req.session.login = true;
       res.redirect("urls");
     } else {
       res.status(401).send("password is incorrect");
@@ -69,6 +70,12 @@ function getUser(email, users) {
 
 function isPasswordValid(user, password) {
   return user.password === password;
+}
+
+export function postLogout(req, res) {
+  req.session = null;
+  res.render("login");
+  console.log("aaaa");
 }
 
 const __filename = fileURLToPath(import.meta.url);

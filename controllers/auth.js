@@ -43,8 +43,6 @@ export {newUser};
 
 // auth functions
 export const postLogin = (req, res) => {
-  console.log(req.body.email);
-  console.log(req.body.password);
 
   const user = getUser(req.body.email);
   if(user) {
@@ -75,7 +73,6 @@ function isPasswordValid(user, password) {
 export function postLogout(req, res) {
   req.session = null;
   res.render("login");
-  console.log("aaaa");
 }
 
 const __filename = fileURLToPath(import.meta.url);

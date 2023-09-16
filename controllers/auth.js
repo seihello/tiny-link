@@ -94,7 +94,7 @@ function isPasswordValid(user, password) {
 
 export function postLogout(req, res) {
   req.session = null;
-  res.render("login");
+  res.redirect("login");
 }
 
 const __filename = fileURLToPath(import.meta.url);

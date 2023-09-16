@@ -73,6 +73,38 @@
         animation: moveX 6s infinite;
         background: rgba(0, 0, 255, 0.2); /* blue color */
       }
+
+      .unfulfilled {
+        color: red;
+      }
+
+      .fulfilled {
+        color: green;
+      }
+      .password-input {
+        display: flex;
+        align-items: center;
+        position: relative;
+      }
+
+      .password-input input {
+        flex: 1;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 6px;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      }
+
+      .password-input .show-password-button {
+        background-color: transparent;
+        border: none;
+        padding: 6px 10px;
+        cursor: pointer;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+      }
     </style>
   </head>
 
@@ -113,23 +145,77 @@
                 </div>
                 <div class="form-group">
                   <label for="password">Password</label>
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="password"
-                    placeholder="Enter password"
-                    name="password"
-                  />
+                  <div class="password-input">
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="password"
+                      placeholder="Enter password"
+                      name="password"
+                    />
+                    <button
+                      type="button"
+                      id="showPasswordButton"
+                      class="show-password-button"
+                    >
+                      Show
+                    </button>
+                  </div>
                 </div>
+                <div id="password-requirements">
+                  <p>Password Requirements:</p>
+                  <ul>
+                    <li class="requirement-line" id="length-check">
+                      <span class="requirement-label"
+                        >At least 8 characters</span
+                      >
+                      <span class="requirement-status unfulfilled">✗</span>
+                    </li>
+                    <li class="requirement-line" id="uppercase-check">
+                      <span class="requirement-label"
+                        >At least one uppercase letter (A-Z)</span
+                      >
+                      <span class="requirement-status unfulfilled">✗</span>
+                    </li>
+                    <li class="requirement-line" id="lowercase-check">
+                      <span class="requirement-label"
+                        >At least one lowercase letter (a-z)</span
+                      >
+                      <span class="requirement-status unfulfilled">✗</span>
+                    </li>
+                    <li class="requirement-line" id="digit-check">
+                      <span class="requirement-label"
+                        >At least one digit (0-9)</span
+                      >
+                      <span class="requirement-status unfulfilled">✗</span>
+                    </li>
+                    <li class="requirement-line" id="specialchar-check">
+                      <span class="requirement-label"
+                        >At least one special character (@$!%*?&)</span
+                      >
+                      <span class="requirement-status unfulfilled">✗</span>
+                    </li>
+                  </ul>
+                </div>
+
                 <div class="form-group">
                   <label for="confirmPassword">Confirm Password</label>
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    placeholder="Confirm password"
-                  />
+                  <div class="password-input">
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      placeholder="Confirm password"
+                    />
+                    <button
+                      type="button"
+                      id="showPasswordButton"
+                      class="show-password-button"
+                    >
+                      Show
+                    </button>
+                  </div>
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-block">
@@ -163,26 +249,68 @@
     <script>
       const passwordInput = document.getElementById("password");
       const confirmPasswordInput = document.getElementById("confirmPassword");
-      const errorElement = document.getElementById("error-message");
 
-      function validatePasswords() {
-        if (passwordInput.value !== confirmPasswordInput.value) {
-          errorElement.textContent = "Passwords do not match.";
+      const requirementLines = document.querySelectorAll(".requirement-line");
+      const showPasswordButton = document.getElementById("showPasswordButton");
+
+      showPasswordButton.addEventListener("click", () => {
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          showPasswordButton.textContent = "Hide";
         } else {
-          errorElement.textContent = "";
-        }
-      }
-
-      document.querySelector("form").addEventListener("submit", (e) => {
-        if (passwordInput.value !== confirmPasswordInput.value) {
-          e.preventDefault();
-          errorElement.textContent =
-            "Passwords do not match. Please try again.";
+          passwordInput.type = "password";
+          showPasswordButton.textContent = "Show";
         }
       });
 
-      passwordInput.addEventListener("input", validatePasswords);
-      confirmPasswordInput.addEventListener("input", validatePasswords);
+      function initializeRequirements() {
+        for (const line of requirementLines) {
+          updateRequirementLine(line, false);
+        }
+      }
+
+      function validatePasswords() {
+        const password = passwordInput.value;
+
+        const hasUppercase = /[A-Z]/.test(password);
+        const hasLowercase = /[a-z]/.test(password);
+        const hasDigit = /\d/.test(password);
+        const hasSpecialChar = /[@$!%*?&]/.test(password);
+        const hasLength = password.length >= 8;
+
+        for (const line of requirementLines) {
+          const requirementID = line.id;
+          const isValid =
+            (requirementID === "length-check" && hasLength) ||
+            (requirementID === "uppercase-check" && hasUppercase) ||
+            (requirementID === "lowercase-check" && hasLowercase) ||
+            (requirementID === "digit-check" && hasDigit) ||
+            (requirementID === "specialchar-check" && hasSpecialChar);
+
+          updateRequirementLine(line, isValid);
+        }
+      }
+
+      function updateRequirementLine(line, isValid) {
+        const statusIcon = line.querySelector(".requirement-status");
+
+        if (isValid) {
+          line.classList.remove("unfulfilled");
+          line.classList.add("fulfilled");
+          statusIcon.textContent = "✓"; // Change to green tick
+          statusIcon.style.color = "green";
+        } else {
+          line.classList.remove("fulfilled");
+          line.classList.add("unfulfilled");
+          statusIcon.textContent = "✗"; // Change back to red cross
+          statusIcon.style.color = "red";
+        }
+      }
+
+      initializeRequirements();
+
+      passwordInput.addEventListener("keyup", validatePasswords);
+      confirmPasswordInput.addEventListener("keyup", validatePasswords);
     </script>
   </body>
 </html>

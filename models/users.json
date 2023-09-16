@@ -9,5 +9,11 @@
     "name": "Bosco Lam",
     "email": "hkboscolam@gmail.com",
     "password": "$2b$04$94ZJZSnDA3AXzDILMmkihu.dTLo0ngp4Bxm18Hp7lGRCotiPD6hdm"
+  },
+  "f589fcd5-a3b3-4220-88bc-b1b1cd0e3e4a": {
+    "id": "f589fcd5-a3b3-4220-88bc-b1b1cd0e3e4a",
+    "name": "Bosco Lam",
+    "email": "tsest@test.com",
+    "password": "$2b$04$iov7PApht6/t29Qc9hcciu2YKYBeBVCb7gjdGaa5ehghvwl7JRTXC"
   }
 }

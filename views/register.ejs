@@ -105,6 +105,16 @@
         top: 50%;
         transform: translateY(-50%);
       }
+      .show-password-button {
+        background-color: transparent;
+        border: none; /* Remove the border */
+        padding: 6px 10px;
+        cursor: pointer;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+      }
     </style>
   </head>
 
@@ -191,8 +201,8 @@
                     </li>
                     <li class="requirement-line" id="specialchar-check">
                       <span class="requirement-label"
-                        >At least one special character (@$!%*?&)</span
-                      >
+                        >At least one special character
+                      </span>
                       <span class="requirement-status unfulfilled">✗</span>
                     </li>
                   </ul>
@@ -210,7 +220,7 @@
                     />
                     <button
                       type="button"
-                      id="showPasswordButton"
+                      id="showConfirmButton"
                       class="show-password-button"
                     >
                       Show
@@ -252,6 +262,7 @@
 
       const requirementLines = document.querySelectorAll(".requirement-line");
       const showPasswordButton = document.getElementById("showPasswordButton");
+      const showConfirmButton = document.getElementById("showConfirmButton");
 
       showPasswordButton.addEventListener("click", () => {
         if (passwordInput.type === "password") {
@@ -260,6 +271,15 @@
         } else {
           passwordInput.type = "password";
           showPasswordButton.textContent = "Show";
+        }
+      });
+      showConfirmButton.addEventListener("click", () => {
+        if (confirmPasswordInput.type === "password") {
+          confirmPasswordInput.type = "text";
+          showConfirmButton.textContent = "Hide";
+        } else {
+          confirmPasswordInput.type = "password";
+          showConfirmButton.textContent = "Show";
         }
       });
 

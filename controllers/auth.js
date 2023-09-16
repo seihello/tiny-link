@@ -72,10 +72,10 @@ export const postLogin = (req, res) => {
       req.session.login = true;
       res.redirect("urls");
     } else {
-      res.status(401).send("password is incorrect");
+      res.render("login", {passwordErrorMessage: "Incorrect password. Please try again."});
     }
   } else {
-    res.status(401).send("this email is not registered");
+    res.render("login", {emailErrorMessage: "This user does not exist. Please try again."});
   }
 }
 

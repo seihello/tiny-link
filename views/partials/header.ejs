@@ -30,8 +30,8 @@
           >
         </div>
         <div class="d-flex align-items-center">
-          <% if(locals.login) { %>
-          <span class="nav-item nav-link text-muted">Logged in as: </span>
+          <% if(locals.login && locals.email) { %>
+          <span class="nav-item nav-link text-muted">Logged in as: <%= locals.email %></span>
           <form method="post" action="logout">
             <button type="submit" class="btn btn-outline-danger mr-2">
               Logout

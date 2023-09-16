@@ -15,6 +15,10 @@ server.use(cookieSession({
   name: 'session',
   keys: ['key1', 'key2']
 }));
+server.use((req, res, next) => {
+  res.locals.login = req.session.login;
+  next();
+});
 
 server.use("/urls", urlsRouter);
 

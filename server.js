@@ -17,7 +17,7 @@ server.use(cookieSession({
 }));
 server.use((req, res, next) => {
   res.locals.login = req.session.login;
-  if(res.locals.email) {
+  if(req.session.email) {
     res.locals.email = req.session.email;
   }
   next();

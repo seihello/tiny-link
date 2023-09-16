@@ -95,7 +95,7 @@ function isPasswordValid(user, password) {
 }
 
 export function postLogout(req, res) {
-  req.session = null;
+  req.session.login = null;
   req.session.email = null;
   res.redirect("login");
 }

@@ -96,6 +96,7 @@
       <div class="centered-content">
         <h1>Welcome to TinyLinks</h1>
         <p>Shorten your long URLs for easier sharing and management!</p>
+        <% if(login) { %>
         <form action="/create-short-url" method="POST" style="width: 400px">
           <input
             type="url"
@@ -109,6 +110,12 @@
             <button type="submit" class="btn btn-primary">Shorten</button>
           </div>
         </form>
+        <% } else { %>
+          <div style="display: flex; column-gap: 10px;">
+            <a href="/login" class="btn btn-success">Log In</a>
+            <a href="/resister" class="btn btn-success">Resister</a>
+          </div>
+        <% } %>
       </div>
     </div>
 

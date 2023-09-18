@@ -28,7 +28,7 @@ server.use("/urls", urlsRouter);
 server.use("/", authRouter);
 
 server.get("/", (req, res) => {
-  res.render("home");
+  res.render("home", {login: req.session.login});
 });
 
 export default server;

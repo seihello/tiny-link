@@ -53,6 +53,24 @@
         bottom: -20rem;
         left: 200px;
       }
+      @media screen and (max-width: 450px) {
+        .blurred-shape {
+          display: none;
+        }
+        .centered-content h1,
+        p {
+          display: flex;
+          text-align: center;
+        }
+        body {
+          overflow-y: hidden;
+          background: linear-gradient(to bottom, #add8e6, #00008b);
+          height: 100vh;
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+        }
+      }
     </style>
   </head>
 

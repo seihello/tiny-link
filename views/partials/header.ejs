@@ -16,8 +16,8 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav d-flex justify-content-between w-100">
-        <div class="d-flex">
+      <div class="navbar-nav d-md-flex justify-content-between w-100">
+        <div class="d-md-flex">
           <a
             class="nav-item nav-link text-success font-weight-bold"
             href="/urls"
@@ -29,9 +29,11 @@
             >Create New URL</a
           >
         </div>
-        <div class="d-flex align-items-center">
+        <div class="d-md-none d-lg-flex align-items-center">
           <% if(locals.login && locals.email) { %>
-          <span class="nav-item nav-link text-muted">Logged in as: <%= locals.email %></span>
+          <span class="nav-item nav-link text-muted"
+            >Logged in as: <%= locals.email %></span
+          >
           <form method="post" action="logout">
             <button type="submit" class="btn btn-outline-danger mr-2">
               Logout

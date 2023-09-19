@@ -64,8 +64,8 @@
         max-height: 70vh; /* Adjust as per your design preference */
         overflow-y: auto;
         padding-right: 1rem; /* Provides space for the scrollbar */
-
-      @media screen and (max-width: 450px) {
+      }
+      @media screen and (max-width: 1000px) {
         .blurred-shape {
           display: none;
         }
@@ -83,6 +83,9 @@
           background-repeat: no-repeat;
         }
       }
+      .table table-bordered {
+        width: 90vw;
+      }
     </style>
   </head>
 
@@ -96,40 +99,46 @@
 
       <main class="url-section text-center main-scrollable">
         <h3>My URLs</h3>
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th scope="col">Short URL ID</th>
-              <th scope="col">Long URL</th>
-              <th scope="col">Edit</th>
-              <th scope="col">Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% for (let id in urls) { %>
-            <tr>
-              <th scope="row">
-                <% if (urls[id].shortUrl === "") { %> <%= id %> <% } else { %>
-                <a href="http://localhost:8080/urls/u/<%= urls[id].shortUrl %>">
-                  http://localhost:8080/urls/u/<%= urls[id].shortUrl %>
-                </a>
-                <% } %>
-              </th>
-              <td class="truncate-url" title="<%= urls[id].longUrl %>">
-                <%= urls[id].longUrl %>
-              </td>
-              <td>
-                <a href="/urls/<%= id %>/edit" class="btn btn-primary">Edit</a>
-              </td>
-              <td>
-                <a href="/urls/<%= id %>/delete" class="btn btn-danger"
-                  >Delete</a
-                >
-              </td>
-            </tr>
-            <% } %>
-          </tbody>
-        </table>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Short URL ID</th>
+                <th scope="col">Long URL</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for (let id in urls) { %>
+              <tr>
+                <th scope="row">
+                  <% if (urls[id].shortUrl === "") { %> <%= id %> <% } else { %>
+                  <a
+                    href="http://localhost:8080/urls/u/<%= urls[id].shortUrl %>"
+                  >
+                    http://localhost:8080/urls/u/<%= urls[id].shortUrl %>
+                  </a>
+                  <% } %>
+                </th>
+                <td class="truncate-url" title="<%= urls[id].longUrl %>">
+                  <%= urls[id].longUrl %>
+                </td>
+                <td>
+                  <a href="/urls/<%= id %>/edit" class="btn btn-primary"
+                    >Edit</a
+                  >
+                </td>
+                <td>
+                  <a href="/urls/<%= id %>/delete" class="btn btn-danger"
+                    >Delete</a
+                  >
+                </td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
       </main>
     </div>
 

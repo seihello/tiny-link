@@ -4,6 +4,7 @@ const server = express();
 
 import urlsRouter from "./routes/urls.js";
 import authRouter from "./routes/auth.js";
+import { getEmail } from "./controllers/auth.js"; 
 
 import cookieSession from "cookie-session";
 
@@ -17,8 +18,8 @@ server.use(cookieSession({
 }));
 server.use((req, res, next) => {
   res.locals.login = req.session.login;
-  if(req.session.email) {
-    res.locals.email = req.session.email;
+  if(req.session.userId) {
+    res.locals.email = getEmail(req.session.userId);
   }
   next();
 });

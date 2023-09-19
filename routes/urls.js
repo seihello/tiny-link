@@ -1,7 +1,7 @@
 // urls.js
 
 import express from "express"; // Express library for web framework
-import { readUrls, writeUrls, generateShortUrl } from "../controllers/urls.js"; // Functions to read and write URLs
+import { readUrls, writeUrls, generateShortUrl, filterUrls } from "../controllers/urls.js"; // Functions to read and write URLs
 
 const urlsRouter = express.Router(); // Initializing the express router
 
@@ -69,7 +69,8 @@ urlsRouter.get("/:id/delete", (req, res) => {
 // Default route for viewing all URLs
 urlsRouter.get("/", (req, res) => {
   const urls = readUrls();
-  res.render("urls", { urls: urls });
+  const filteredUrls = filterUrls(urls, req.session.userId);
+  res.render("urls", { urls: filteredUrls });
 });
 
 // Route for updating the short URL alias of a specific URL by ID
@@ -100,6 +101,7 @@ urlsRouter.post("/", (req, res) => {
   urls[newId] = {
     shortUrl: shortUrlAlias,
     longUrl: longUrl,
+    userId: req.session.userId
   };
 
   writeUrls(urls);

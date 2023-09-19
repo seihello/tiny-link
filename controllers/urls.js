@@ -38,4 +38,14 @@ function generateShortUrl() {
   return result;
 }
 
-export { readUrls, writeUrls, generateShortUrl };
+function filterUrls(urls, userId) {
+  const filteredUrls = {};
+  for (let [key, value] of Object.entries(urls)) {
+    if(value.userId === userId) {
+      filteredUrls[key] = value;
+    }
+  }
+  return filteredUrls;
+}
+
+export { readUrls, writeUrls, generateShortUrl, filterUrls };

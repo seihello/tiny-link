@@ -1,7 +1,7 @@
 // urls.js
 
 import express from "express"; // Express library for web framework
-import { readUrls, writeUrls } from "../controllers/urls.js"; // Functions to read and write URLs
+import { readUrls, writeUrls, generateShortUrl, filterUrls } from "../controllers/urls.js"; // Functions to read and write URLs
 
 const urlsRouter = express.Router(); // Initializing the express router
 
@@ -48,7 +48,7 @@ urlsRouter.get("/:id/edit", (req, res) => {
   res.render("singleUrl", {
     id: urlId,
     url: urlToEdit.longUrl,
-    shortUrlAlias: urlToEdit.shortUrl,
+    shortUrlAlias: urlToEdit.shortUrl, // Ensure this line is present
   });
 });
 
@@ -69,21 +69,22 @@ urlsRouter.get("/:id/delete", (req, res) => {
 // Default route for viewing all URLs
 urlsRouter.get("/", (req, res) => {
   const urls = readUrls();
-  res.render("urls", { urls: urls });
+  const filteredUrls = filterUrls(urls, req.session.userId);
+  res.render("urls", { urls: filteredUrls });
 });
 
 // Route for updating the short URL alias of a specific URL by ID
 urlsRouter.post("/:id", (req, res) => {
   const urlId = req.params.id;
-  const updatedShortUrl = req.body.shortUrl;
+  const updatedLongUrl = req.body.updatedUrl; // Note the change here
   let urls = readUrls();
 
   if (!urls[urlId]) {
     return res.status(404).send("URL not found");
   }
 
-  if (updatedShortUrl && updatedShortUrl.trim() !== "") {
-    urls[urlId].shortUrl = updatedShortUrl;
+  if (updatedLongUrl && updatedLongUrl.trim() !== "") {
+    urls[urlId].longUrl = updatedLongUrl; // Updating the long URL
   }
 
   writeUrls(urls);
@@ -95,14 +96,16 @@ urlsRouter.post("/", (req, res) => {
   let urls = readUrls();
   const longUrl = req.body.longUrl;
   const newId = Object.keys(urls).length + 1;
+  const shortUrlAlias = generateShortUrl();
 
   urls[newId] = {
-    shortUrl: "",
+    shortUrl: shortUrlAlias,
     longUrl: longUrl,
+    userId: req.session.userId
   };
 
   writeUrls(urls);
-  res.redirect(`/urls/${newId}/edit`);
+  res.redirect(`/urls`);
 });
 
 export default urlsRouter;

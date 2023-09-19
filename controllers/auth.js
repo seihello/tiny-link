@@ -3,7 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import { v4 as uuidv4 } from "uuid";
-import users from "../models/users.json" assert { type: "json" };
+// import users from "../models/users.json" assert { type: "json" };
 
 import bcrypt from 'bcrypt';
 
@@ -16,25 +16,26 @@ const newUser = (req, res) => {
   const confirmPassword = req.body.confirmPassword;
 
   if (!receivedMail || !receivedPassword) {
-    return res.status(400).send("Email and password are required.");
+    return res.render("register", { emailErrorMessage: "Email and password are required." });
   }
 
   const checkUsers = readUsers();
 
   const users = Object.values(checkUsers);
-  const checkEmail = users.some((user) => user.email === receivedMail);
+  const existingUser = users.find((user) => user.email === receivedMail);
 
-  if (checkEmail) {
-    return res.status(400).send("Email already exists. Please choose a different email.");
+  if (existingUser) {
+    return res.render("register", { emailErrorMessage: "Email already exists. Please choose a different email." });
   }
+  
 
   if (receivedPassword !== confirmPassword) {
-    return res.status(400).send("Passwords do not match. Please try again.");
+    return res.render("register", { passwordErrorMessage: "Passwords do not match. Please try again." });
   }
 
   const password = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   if (!password.test(receivedPassword)) {
-    return res.status(400).send("Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one digit, and one special character.");
+    return res.render("register", { passwordErrorMessage: "Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one digit, and one special character." });
   }
 
   const id = uuidv4();
@@ -48,21 +49,23 @@ const newUser = (req, res) => {
       id: id,
       name: receivedName,
       email: receivedMail,
-      password: hash, 
+      password: hash,
     };
 
     checkUsers[id] = newUserObject;
 
     fs.writeFileSync("models/users.json", JSON.stringify(checkUsers, null, 2));
 
-    req.session.login = true; 
+    req.session.login = true;
     req.session.email = receivedMail;
 
     res.redirect("/urls");
+    res.render("register", { emailErrorMessage: null });
   });
 };
 
 export { newUser };
+
 
 // auth functions
 export const postLogin = (req, res) => {

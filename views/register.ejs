@@ -81,6 +81,9 @@
       .fulfilled {
         color: green;
       }
+      .error-message {
+        color: red;
+      }
       .password-input {
         display: flex;
         align-items: center;
@@ -151,8 +154,15 @@
                     id="email"
                     placeholder="Enter email"
                     name="email"
+                    oninput="clearEmail()"
                   />
+                  <% if (locals.emailErrorMessage) { %>
+                  <p class="error-message" id="emailErrorMessage">
+                    <%= emailErrorMessage %>
+                  </p>
+                  <% } %>
                 </div>
+
                 <div class="form-group">
                   <label for="password">Password</label>
                   <div class="password-input">
@@ -324,6 +334,13 @@
           line.classList.add("unfulfilled");
           statusIcon.textContent = "✗"; // Change back to red cross
           statusIcon.style.color = "red";
+        }
+      }
+      function clearEmail() {
+        const emailErrorMessageElement =
+          document.getElementById("emailErrorMessage");
+        if (emailErrorMessageElement) {
+          emailErrorMessageElement.textContent = "";
         }
       }
 

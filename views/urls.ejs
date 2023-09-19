@@ -78,7 +78,10 @@
           <tbody>
             <% for (let id in urls) { %>
             <tr>
-              <th scope="row"><%= id %></th>
+              <th scope="row">
+                <% if (urls[id].shortUrl === "") { %> <%= id %> <% } else { %>
+                http://localhost:8080/urls/u/<%= urls[id].shortUrl %> <% } %>
+              </th>
               <td><%= urls[id].longUrl %></td>
               <td>
                 <a href="/urls/<%= id %>/edit" class="btn btn-primary">Edit</a>

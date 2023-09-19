@@ -6,7 +6,7 @@ import { readUrls, writeUrls } from "../controllers/urls.js"; // Functions to re
 const urlsRouter = express.Router(); // Initializing the express router
 
 urlsRouter.use((req, res, next) => {
-  if(req.session.login) {
+  if (req.session.login) {
     next();
   } else {
     res.redirect("/login");
@@ -102,7 +102,7 @@ urlsRouter.post("/", (req, res) => {
   };
 
   writeUrls(urls);
-  res.status(201).json({ message: "URL added successfully!", id: newId });
+  res.redirect(`/urls/${newId}/edit`);
 });
 
 export default urlsRouter;

@@ -57,7 +57,7 @@ const newUser = (req, res) => {
     fs.writeFileSync("models/users.json", JSON.stringify(checkUsers, null, 2));
 
     req.session.login = true;
-    req.session.email = receivedMail;
+    req.session.userId = id;
 
     res.redirect("/urls");
     res.render("register", { emailErrorMessage: null });
@@ -74,7 +74,7 @@ export const postLogin = (req, res) => {
   if(user) {
     if(isPasswordValid(user, req.body.password)) {
       req.session.login = true;
-      req.session.email = user.email;
+      req.session.userId = user.id;
       res.redirect("urls");
     } else {
       res.render("login", {passwordErrorMessage: "Incorrect password. Please try again."});
@@ -99,7 +99,7 @@ function isPasswordValid(user, password) {
 
 export function postLogout(req, res) {
   req.session.login = null;
-  req.session.email = null;
+  req.session.userId = null;
   res.redirect("login");
 }
 
@@ -115,4 +115,8 @@ const readUsers = () => {
   return JSON.parse(data);
 };
 
+export function getEmail(userId) {
+  const resisteredUsers = readUsers();
+  return resisteredUsers[userId].email;
+}
 

@@ -129,8 +129,8 @@
         <h5 class="card-title">TinyURL for:</h5>
         <p class="card-text">
           Short URL:
-          <a href="http://[::1]:8080/urls/u/<%= shortUrlAlias %>"
-            >http://[::1]:8080/urls/u/<%= shortUrlAlias %></a
+          <a href="http://localhost:8080/urls/u/<%= shortUrlAlias %>"
+            >http://localhost:8080/urls/u/<%= shortUrlAlias %></a
           >
         </p>
         <p class="card-text">Short URL ID: <a href="#"><%= id %></a></p>
@@ -138,14 +138,15 @@
       <div class="edit-section">
         <h5>Edit</h5>
         <form action="/urls/<%= id %>" method="post">
-          <label for="updatedUrl">New Short URL:</label>
+          <label for="updatedLongUrl">Edit URL:</label>
           <input type="hidden" name="_method" value="PUT" />
           <input
-            type="text"
-            id="updatedUrl"
-            name="shortUrl"
+            type="url"
+            id="updatedLongUrl"
+            name="updatedUrl"
             value="<%= url %>"
             class="form-control"
+            required
           />
           <button type="submit" class="btn btn-primary">Edit</button>
         </form>

@@ -1,4 +1,4 @@
-# WonderQ
+# Tiny Link
 An application that allows you to make a long URL short.
 ## Screenshot
 ## Demo Page

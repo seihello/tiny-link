@@ -21,4 +21,4 @@ $ cd tiny-link
 $ npm install
 $ node app.js
 ```
-3. Access to https:/localhost:8080/
+3. Access to http:/localhost:8080/

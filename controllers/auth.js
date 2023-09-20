@@ -1,22 +1,21 @@
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
 import { dirname } from "path";
+import { fileURLToPath } from "url";
 import { v4 as uuidv4 } from "uuid";
-// import users from "../models/users.json" assert { type: "json" };
 
 import bcrypt from 'bcrypt';
 
 const saltRounds = 2; 
 
-const newUser = (req, res) => {
+export const postSignup = (req, res) => {
   const receivedMail = req.body.email;
   const receivedName = req.body.name;
   const receivedPassword = req.body.password;
   const confirmPassword = req.body.confirmPassword;
 
   if (!receivedMail || !receivedPassword) {
-    return res.render("register", { emailErrorMessage: "Email and password are required." });
+    return res.render("signup", { emailErrorMessage: "Email and password are required." });
   }
 
   const checkUsers = readUsers();
@@ -25,17 +24,17 @@ const newUser = (req, res) => {
   const existingUser = users.find((user) => user.email === receivedMail);
 
   if (existingUser) {
-    return res.render("register", { emailErrorMessage: "Email already exists. Please choose a different email." });
+    return res.render("signup", { emailErrorMessage: "Email already exists. Please choose a different email." });
   }
   
 
   if (receivedPassword !== confirmPassword) {
-    return res.render("register", { passwordErrorMessage: "Passwords do not match. Please try again." });
+    return res.render("signup", { passwordErrorMessage: "Passwords do not match. Please try again." });
   }
 
   const password = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   if (!password.test(receivedPassword)) {
-    return res.render("register", { passwordErrorMessage: "Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one digit, and one special character." });
+    return res.render("signup", { passwordErrorMessage: "Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one digit, and one special character." });
   }
 
   const id = uuidv4();
@@ -60,11 +59,9 @@ const newUser = (req, res) => {
     req.session.userId = id;
 
     res.redirect("/urls");
-    res.render("register", { emailErrorMessage: null });
+    res.render("signup", { emailErrorMessage: null });
   });
 };
-
-export { newUser };
 
 
 // auth functions
@@ -122,5 +119,13 @@ export function getEmail(userId) {
   } else {
     return "";
   }
+}
+
+export const getLogin = (req, res) => {
+  res.render("login");
+}
+
+export const getSignup = (req, res) => {
+  res.render("signup");
 }
 

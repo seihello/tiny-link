@@ -127,14 +127,14 @@
       <div class="blurred-shape" style="top: -200px; right: 50px"></div>
       <div class="centered-content">
         <h1>Welcome to TinyLinks</h1>
-        <p>Shorten your long URLs for easier sharing and management!</p>
+        <p>Shorten long URL for easier sharing and management!</p>
         <% if(login) { %>
         <form action="/urls" method="POST" style="width: 400px">
           <div class="form-group">
             <input
               type="url"
               class="form-control url-input mb-3"
-              placeholder="Enter your long URL here"
+              placeholder="Enter long URL here"
               required
               name="longUrl"
               id="longURL"
@@ -148,7 +148,7 @@
         <% } else { %>
         <div style="display: flex; column-gap: 10px">
           <a href="/login" class="btn btn-success">Log In</a>
-          <a href="/register" class="btn btn-success">Register</a>
+          <a href="/signup" class="btn btn-success">Sign Up</a>
           <!-- Note: I corrected the typo from "resister" to "register" -->
         </div>
         <% } %>

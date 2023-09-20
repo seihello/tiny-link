@@ -98,12 +98,12 @@
       <div class="blurred-shape"></div>
 
       <main class="url-section text-center main-scrollable">
-        <h3>My URLs</h3>
+        <h3>My URL</h3>
         <div class="table-responsive">
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th scope="col">Short URL ID</th>
+                <th scope="col">Short URL</th>
                 <th scope="col">Long URL</th>
                 <th scope="col">Edit</th>
                 <th scope="col">Delete</th>
@@ -125,7 +125,7 @@
                   <%= urls[id].longUrl %>
                 </td>
                 <td>
-                  <a href="/urls/<%= id %>/edit" class="btn btn-primary"
+                  <a href="/urls/<%= id %>" class="btn btn-primary"
                     >Edit</a
                   >
                 </td>

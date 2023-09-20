@@ -1,18 +1,18 @@
 import express from "express";
-import { newUser, postLogin, postLogout } from "../controllers/auth.js";
+import {
+  getSignup,
+  postSignup,
+  getLogin,
+  postLogin,
+  postLogout
+} from "../controllers/auth.js";
 
 const authRouter = express.Router();
 
-authRouter.get("/register", (req, res) => {
-  res.render("register"); // This will render the urls.ejs file
-});
+authRouter.get("/signup", getSignup);
+authRouter.post("/signup", postSignup);
 
-authRouter.post("/register", newUser);
-
-authRouter.get("/login", (req, res) => {
-  res.render("login");
-});
-
+authRouter.get("/login", getLogin);
 authRouter.post("/login", postLogin);
 
 authRouter.post("/logout", postLogout);

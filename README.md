@@ -15,9 +15,9 @@ An application that allows you to make a long URL short.
 
 ## Getting Started
 1. Clone the repository
-1. Run the following commands
+2. Run the following commands
 ```
 $ cd tiny-link
 $ node app.js
 ```
-1. Access to https:/localhost:8080/
+3. Access to https:/localhost:8080/

@@ -117,6 +117,10 @@ const readUsers = () => {
 
 export function getEmail(userId) {
   const resisteredUsers = readUsers();
-  return resisteredUsers[userId].email;
+  if(resisteredUsers[userId]) {
+    return resisteredUsers[userId].email;
+  } else {
+    return "";
+  }
 }
 

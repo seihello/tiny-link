@@ -1,4 +1,4 @@
-# Tiny Link
+# Tiny Links
 An application that allows you to make a long URL short.
 ## Screenshot
 ## Demo Page
@@ -17,7 +17,7 @@ An application that allows you to make a long URL short.
 1. Clone the repository
 2. Run the following commands
 ```
-$ cd tiny-link
+$ cd tiny-links
 $ npm install
 $ node app.js
 ```

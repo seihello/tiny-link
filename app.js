@@ -1,6 +1,6 @@
 import server from "./server.js";
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 80;
 // const HOST = "localhost";
 
 server.listen(PORT, () => {
